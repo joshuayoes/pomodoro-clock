@@ -9,6 +9,7 @@ module.exports = {
     'import/resolver': {
       typescript: {},
     },
+    'import/ignore': ['.sass']
   },
   rules: {
     'react/jsx-filename-extension': [2, { extensions: ['.js', '.jsx', '.ts', '.tsx'] }],
@@ -18,6 +19,7 @@ module.exports = {
     'spaced-comment': ['error', 'always', {
       'markers': ['/'],
     }],
-    'linebreak-style': 0    
+    'linebreak-style': 0,
+    'react/prop-types': 0
   },
 };

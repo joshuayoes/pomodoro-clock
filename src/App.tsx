@@ -1,27 +1,17 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import './App.scss';
+import TimerControl from './components/TimerControl';
 
 const App: React.FC = () => (
   <div className="App">
-    <header className="App-header">
-      <img src={logo} className="App-logo" alt="logo" />
-      <p>
-          Edit
-        {' '}
-        <code>src/App.tsx</code>
-        {' '}
-and save to reload.
-      </p>
-      <a
-        className="App-link"
-        href="https://reactjs.org"
-        target="_blank"
-        rel="noopener noreferrer"
-      >
-          Learn React
-      </a>
-    </header>
+    <TimerControl controlType="session" length={25} />
+    <TimerControl controlType="break" length={5} />
+
+    <section id="timer-label">Session</section>
+    <section id="time-left">25:00</section>
+
+    <button type="button" id="start_stop">Start/Stop</button>
+    <button type="button" id="reset">Reset</button>
   </div>
 );
 
