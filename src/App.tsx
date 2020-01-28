@@ -3,7 +3,7 @@ import './App.scss';
 import TimerControl from './components/TimerControl';
 
 const App: React.FC = () => (
-  <div className="App">
+  <div id="app">
     <TimerControl controlType="session" length={25} />
     <TimerControl controlType="break" length={5} />
 
