@@ -4,7 +4,7 @@ import {
   INCREASE_BREAK_LENGTH, DECREASE_BREAK_LENGTH, INCREASE_SESSION_LENGTH, DECREASE_SESSION_LENGTH, DECREMENT_TIMER,
 } from '../actions';
 
-interface State {
+export interface TimerState {
   sessionLength: number;
   breakLength: number;
   timer: number;
@@ -24,7 +24,7 @@ export const intialState = {
   isPlaying: false,
 };
 
-const timerReducer = (state: State = intialState, action: TimerAction): State => {
+const timerReducer = (state: TimerState = intialState, action: TimerAction): TimerState => {
   switch (action.type) {
     case INCREASE_BREAK_LENGTH:
       return {
