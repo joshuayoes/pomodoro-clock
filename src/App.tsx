@@ -4,6 +4,7 @@ import TimerControl from './components/TimerControl';
 import {
   increaseBreakLength, decreaseBreakLength, increaseSessionLength, decreaseSessionLength,
 } from './redux/actionCreators';
+import TimerDisplay from './components/TimerDisplay';
 
 
 const App: React.FC = () => (
@@ -11,8 +12,7 @@ const App: React.FC = () => (
     <TimerControl controlType="session" increase={increaseSessionLength()} decrease={decreaseSessionLength()} />
     <TimerControl controlType="break" increase={increaseBreakLength()} decrease={decreaseBreakLength()} />
 
-    <section id="timer-label">Session</section>
-    <section id="time-left">25:00</section>
+    <TimerDisplay />
 
     <button type="button" id="start_stop">Start/Stop</button>
     <button type="button" id="reset">Reset</button>

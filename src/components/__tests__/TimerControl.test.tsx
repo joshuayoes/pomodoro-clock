@@ -4,15 +4,19 @@ import React from 'react';
 import { shallow } from 'enzyme';
 import TimerControl from '../TimerControl';
 import findById from '../../../testUtility';
+import {
+  increaseBreakLength, decreaseBreakLength, increaseSessionLength, decreaseSessionLength,
+} from '../../redux/actionCreators';
+
 
 describe('Break Timer Control', () => {
   const props = {
     controlType: 'break',
     length: 5,
   };
-  const { controlType, length } = props;
+  const { controlType } = props;
 
-  const wrapper = shallow(<TimerControl controlType={controlType} length={length} />);
+  const wrapper = shallow(<TimerControl controlType={controlType} increase={increaseBreakLength()} decrease={decreaseBreakLength()} />);
 
   it('An element with id="break-label" exists', () => {
     const component = findById(wrapper, '#break-label');
@@ -38,11 +42,10 @@ describe('Break Timer Control', () => {
 describe('Session Timer Control', () => {
   const props = {
     controlType: 'session',
-    length: 25,
   };
-  const { controlType, length } = props;
+  const { controlType } = props;
 
-  const wrapper = shallow(<TimerControl controlType={controlType} length={length} />);
+  const wrapper = shallow(<TimerControl controlType={controlType} increase={increaseSessionLength()} decrease={decreaseSessionLength()} />);
 
   it('An element with the id="session-label"', () => {
     const component = findById(wrapper, '#session-label');
