@@ -3,6 +3,11 @@
 /* eslint-disable no-underscore-dangle */
 import { createStore } from 'redux';
 import rootReducer from './reducers';
+import { TimerState } from './reducers/timerReducer';
+
+export interface AppStore {
+  timer: TimerState;
+}
 
 const store = createStore(
   rootReducer,

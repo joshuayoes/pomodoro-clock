@@ -2,18 +2,21 @@
 import React from 'react';
 import _ from 'lodash';
 import { connect } from 'react-redux';
+import {
+  Dispatch, Action,
+} from 'redux';
+import { AppStore } from '../redux/store';
 
 interface Props {
   controlType: string;
   increase: any;
   decrease: any;
-  dispatch: any;
   sessionLength?: number;
   breakLength?: number;
 }
 
 const TimerControl: React.FC<Props> = ({
-  controlType, increase, decrease, dispatch, sessionLength, breakLength,
+  controlType, increase, decrease, sessionLength, breakLength,
 }) => (
   <section id={`${controlType}-control`} className="timer-control">
     <div id={`${controlType}-label`}>
@@ -27,21 +30,21 @@ const TimerControl: React.FC<Props> = ({
     <button
       type="button"
       id={`${controlType}-increment`}
-      onClick={(): void => dispatch(increase)}
+      onClick={increase}
     >
       +
     </button>
     <button
       type="button"
       id={`${controlType}-decrement`}
-      onClick={(): void => dispatch(decrease)}
+      onClick={decrease}
     >
       -
     </button>
   </section>
 );
 
-const mapStateToProps = (state: any): object => {
+const mapStateToProps = (state: AppStore): object => {
   const { sessionLength, breakLength } = state.timer;
   return {
     sessionLength,
@@ -49,4 +52,9 @@ const mapStateToProps = (state: any): object => {
   };
 };
 
-export default connect(mapStateToProps)(TimerControl);
+const mapDispatchToProps = (dispatch: Dispatch, ownProps: Props): object => ({
+  increase: (): Action => dispatch(ownProps.increase),
+  decrease: (): Action => dispatch(ownProps.decrease),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(TimerControl);

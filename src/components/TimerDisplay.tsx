@@ -1,5 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import secondsToClock from '../utilityFunctions';
+import { AppStore } from '../redux/store';
 
 interface Props {
   currentTimerType?: string;
@@ -13,23 +15,9 @@ const TimerDisplay: React.FC<Props> = ({ clock, currentTimerType }) => (
   </>
 );
 
-const mapStateToProps = (state: any): object => {
-  const secondsToClock = (_seconds: number): string => {
-    const pureSeconds: number = _seconds % 60;
-    const pureMinutes: number = (_seconds - pureSeconds) / 60;
-
-    const prependSingleDigit = (number: number): string => {
-      const time: string = number.toString();
-      return time.length === 1 ? '0'.concat(time) : time;
-    };
-
-    const minutes = prependSingleDigit(pureMinutes);
-    const seconds = prependSingleDigit(pureSeconds);
-
-    return `${minutes}:${seconds}`;
-  };
-
+const mapStateToProps = (state: AppStore): object => {
   const { timer, currentTimerType } = state.timer;
+
   return {
     currentTimerType,
     clock: secondsToClock(timer),
