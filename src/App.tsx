@@ -1,8 +1,9 @@
 import React from 'react';
 import './App.scss';
 import TimerControl from './components/TimerControl';
+import Button from './components/Button';
 import {
-  increaseBreakLength, decreaseBreakLength, increaseSessionLength, decreaseSessionLength,
+  increaseBreakLength, decreaseBreakLength, increaseSessionLength, decreaseSessionLength, resetTimer,
 } from './redux/actionCreators';
 import TimerDisplay from './components/TimerDisplay';
 
@@ -15,7 +16,7 @@ const App: React.FC = () => (
     <TimerDisplay />
 
     <button type="button" id="start_stop">Start/Stop</button>
-    <button type="button" id="reset">Reset</button>
+    <Button name="Reset" id="reset" actionCreator={resetTimer()} />
   </div>
 );
 

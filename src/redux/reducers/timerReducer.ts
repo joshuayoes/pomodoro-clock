@@ -1,7 +1,7 @@
 // eslint-disable-next-line import/no-cycle
 import {
   // eslint-disable-next-line max-len
-  INCREASE_BREAK_LENGTH, DECREASE_BREAK_LENGTH, INCREASE_SESSION_LENGTH, DECREASE_SESSION_LENGTH, DECREMENT_TIMER,
+  INCREASE_BREAK_LENGTH, DECREASE_BREAK_LENGTH, INCREASE_SESSION_LENGTH, DECREASE_SESSION_LENGTH, DECREMENT_TIMER, RESET_TIMER,
 } from '../actions';
 
 export interface TimerState {
@@ -50,6 +50,10 @@ const timerReducer = (state: TimerState = intialState, action: TimerAction): Tim
       return {
         ...state,
         timer: state.timer - 1,
+      };
+    case RESET_TIMER:
+      return {
+        ...intialState,
       };
     default:
       return state;
