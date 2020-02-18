@@ -1,3 +1,4 @@
+import { AccurateInterval } from 'accurate-interval';
 import {
   INCREASE_BREAK_LENGTH,
   DECREASE_BREAK_LENGTH,
@@ -15,11 +16,12 @@ export interface TimerState {
   timer: number;
   currentTimerType: string;
   isPlaying: boolean;
-  timerId: Function | null;
+  timerId?: AccurateInterval | null;
 }
 
 export interface TimerAction {
   type: string;
+  timerId?: AccurateInterval | null;
 }
 
 export const intialState = {
