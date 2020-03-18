@@ -1,4 +1,3 @@
-import { AccurateInterval } from 'accurate-interval';
 import {
   INCREASE_BREAK_LENGTH,
   DECREASE_BREAK_LENGTH,
@@ -7,6 +6,8 @@ import {
   DECREMENT_TIMER,
   RESET_TIMER,
   TOGGLE_TIMER,
+  BEGIN_COUNTDOWN,
+  TICK,
 } from '../actions';
 
 
@@ -16,12 +17,12 @@ export interface TimerState {
   timer: number;
   currentTimerType: string;
   isPlaying: boolean;
-  timerId?: AccurateInterval | null;
+  timerId?: ReturnType<typeof setInterval>;
 }
 
 export interface TimerAction {
   type: string;
-  timerId?: AccurateInterval | null;
+  timerId?: ReturnType<typeof setInterval>;
 }
 
 export const intialState = {
@@ -30,11 +31,16 @@ export const intialState = {
   timer: 1500,
   currentTimerType: 'Session',
   isPlaying: false,
-  timerId: null,
 };
 
 const timerReducer = (state: TimerState = intialState, action: TimerAction): TimerState => {
   switch (action.type) {
+    case BEGIN_COUNTDOWN:
+      return {
+        ...state,
+        timerId: action.timerId,
+        isPlaying: true,
+      };
     case INCREASE_BREAK_LENGTH:
       return {
         ...state,
@@ -62,10 +68,16 @@ const timerReducer = (state: TimerState = intialState, action: TimerAction): Tim
         ...state,
         timer: state.timer - 1,
       };
-    case RESET_TIMER:
+    case TICK:
+      return {
+        ...state,
+        timer: state.timer - 1,
+      };
+    case RESET_TIMER: {
       return {
         ...intialState,
       };
+    }
     case TOGGLE_TIMER: {
       const { isPlaying } = state;
 
@@ -77,7 +89,6 @@ const timerReducer = (state: TimerState = intialState, action: TimerAction): Tim
         : {
           ...state,
           isPlaying: !isPlaying,
-          timerId: null,
         };
     }
     default:

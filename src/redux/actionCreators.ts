@@ -1,4 +1,3 @@
-import accurateInterval, { AccurateInterval } from 'accurate-interval';
 import { Dispatch } from 'redux';
 import {
   INCREASE_BREAK_LENGTH,
@@ -9,6 +8,7 @@ import {
   RESET_TIMER,
   TOGGLE_TIMER,
   BEGIN_COUNTDOWN,
+  TICK,
 } from './actions';
 
 import { TimerAction } from './reducers/timerReducer';
@@ -21,15 +21,15 @@ export const decreaseSessionLength = (): TimerAction => ({ type: DECREASE_SESSIO
 export const decrementTimer = (): TimerAction => ({ type: DECREMENT_TIMER });
 export const resetTimer = (): TimerAction => ({ type: RESET_TIMER });
 export const toggleTimer = (): TimerAction => ({ type: TOGGLE_TIMER });
-export const beginCountdown = (dispatch: Dispatch): TimerAction => {
-  const incrementTimer: AccurateInterval = accurateInterval(
-    () => dispatch(decrementTimer()),
+export const tick = (): TimerAction => ({ type: TICK });
+export const beginCountdown = (dispatch: Dispatch): void => {
+  const timerId: ReturnType<typeof setInterval> = setInterval(
+    () => dispatch(tick()),
     1000,
-    { aligned: true, immediate: true },
   );
 
-  return {
+  dispatch({
     type: BEGIN_COUNTDOWN,
-    timerId: incrementTimer,
-  };
+    timerId,
+  });
 };

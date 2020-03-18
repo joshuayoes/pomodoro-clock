@@ -1,12 +1,12 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { TimerAction } from '../redux/reducers/timerReducer';
+import { Dispatch } from 'redux';
 import { beginCountdown } from '../redux/actionCreators';
 
 interface Props {
   name: string;
   id: string;
-  dispatch: any;
+  dispatch: Dispatch;
 }
 
 const StartStop: React.FC<Props> = ({
@@ -15,7 +15,7 @@ const StartStop: React.FC<Props> = ({
   <button
     type="button"
     id={id}
-    onClick={(): TimerAction => beginCountdown(dispatch)}
+    onClick={(): void => beginCountdown(dispatch)}
   >
     {name}
   </button>

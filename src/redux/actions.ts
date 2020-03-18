@@ -6,3 +6,4 @@ export const DECREMENT_TIMER = 'DECREMENT_TIMER';
 export const RESET_TIMER = 'RESET_TIMER';
 export const TOGGLE_TIMER = 'TOGGLE_TIMER';
 export const BEGIN_COUNTDOWN = 'BEGIN_COUNTDOWN';
+export const TICK = 'TICK';
