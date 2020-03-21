@@ -1,24 +1,31 @@
 import React from 'react';
-import { connect } from 'react-redux';
-import { Dispatch } from 'redux';
-import { beginCountdown } from '../redux/actionCreators';
+import {
+  useSelector, useDispatch,
+} from 'react-redux';
+import { beginCountdown, pauseCountdown } from '../redux/actionCreators';
+import { AppStore } from '../redux/store';
 
 interface Props {
   name: string;
   id: string;
-  dispatch: Dispatch;
 }
 
-const StartStop: React.FC<Props> = ({
-  name, id, dispatch,
-}) => (
-  <button
-    type="button"
-    id={id}
-    onClick={(): void => beginCountdown(dispatch)}
-  >
-    {name}
-  </button>
-);
 
-export default connect()(StartStop);
+const StartStop: React.FC<Props> = ({
+  name, id,
+}) => {
+  const isPlaying = useSelector((state: AppStore) => state.timer.isPlaying);
+  const dispatch = useDispatch();
+
+  return (
+    <button
+      type="button"
+      id={id}
+      onClick={() => (isPlaying ? dispatch(pauseCountdown()) : dispatch(beginCountdown()))}
+    >
+      {name}
+    </button>
+  );
+};
+
+export default StartStop;

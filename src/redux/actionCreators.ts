@@ -9,6 +9,7 @@ import {
   TOGGLE_TIMER,
   BEGIN_COUNTDOWN,
   TICK,
+  PAUSE_COUNTDOWN,
 } from './actions';
 
 import { TimerAction } from './reducers/timerReducer';
@@ -22,7 +23,8 @@ export const decrementTimer = (): TimerAction => ({ type: DECREMENT_TIMER });
 export const resetTimer = (): TimerAction => ({ type: RESET_TIMER });
 export const toggleTimer = (): TimerAction => ({ type: TOGGLE_TIMER });
 export const tick = (): TimerAction => ({ type: TICK });
-export const beginCountdown = (dispatch: Dispatch): void => {
+export const pauseCountdown = (): TimerAction => ({ type: PAUSE_COUNTDOWN });
+export const beginCountdown = () => (dispatch: Dispatch): void => {
   const timerId: ReturnType<typeof setInterval> = setInterval(
     () => dispatch(tick()),
     1000,

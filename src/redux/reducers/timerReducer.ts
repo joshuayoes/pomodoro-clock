@@ -8,8 +8,8 @@ import {
   TOGGLE_TIMER,
   BEGIN_COUNTDOWN,
   TICK,
+  PAUSE_COUNTDOWN,
 } from '../actions';
-
 
 export interface TimerState {
   sessionLength: number;
@@ -22,6 +22,7 @@ export interface TimerState {
 
 export interface TimerAction {
   type: string;
+  isPlaying?: boolean;
   timerId?: ReturnType<typeof setInterval>;
 }
 
@@ -40,6 +41,15 @@ const timerReducer = (state: TimerState = intialState, action: TimerAction): Tim
         ...state,
         timerId: action.timerId,
         isPlaying: true,
+      };
+    case PAUSE_COUNTDOWN:
+      if (state.timerId !== undefined) {
+        clearInterval(state.timerId);
+      }
+
+      return {
+        ...state,
+        isPlaying: false,
       };
     case INCREASE_BREAK_LENGTH:
       return {
@@ -74,6 +84,10 @@ const timerReducer = (state: TimerState = intialState, action: TimerAction): Tim
         timer: state.timer - 1,
       };
     case RESET_TIMER: {
+      if (state.timerId !== undefined) {
+        clearInterval(state.timerId);
+      }
+
       return {
         ...intialState,
       };
