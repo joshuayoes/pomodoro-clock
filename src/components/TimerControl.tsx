@@ -1,16 +1,13 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import React from 'react';
 import _ from 'lodash';
 import { useSelector, useDispatch } from 'react-redux';
-import {
-  Dispatch,
-} from 'redux';
 import { AppStore } from '../redux/store';
+import { TimerAction } from '../redux/reducers/timerReducer';
 
 interface Props {
   controlType: string;
-  increase: any;
-  decrease: any;
+  increase: TimerAction;
+  decrease: TimerAction;
 }
 
 const TimerControl: React.FC<Props> = ({
@@ -34,14 +31,14 @@ const TimerControl: React.FC<Props> = ({
       <button
         type="button"
         id={`${controlType}-increment`}
-        onClick={(): Dispatch => dispatch(increase)}
+        onClick={(): TimerAction => dispatch(increase)}
       >
       +
       </button>
       <button
         type="button"
         id={`${controlType}-decrement`}
-        onClick={(): Dispatch => dispatch(decrease)}
+        onClick={(): TimerAction => dispatch(decrease)}
       >
       -
       </button>
