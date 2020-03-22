@@ -1,27 +1,18 @@
 import React from 'react';
-import { connect } from 'react-redux';
+import { useSelector } from 'react-redux';
 import secondsToClock from '../utilityFunctions';
 import { AppStore } from '../redux/store';
 
-interface Props {
-  currentTimerType?: string;
-  clock?: string;
-}
+const TimerDisplay: React.FC = () => {
+  const currentTimerType = useSelector((state: AppStore) => state.timer.currentTimerType);
+  const clock = useSelector((state: AppStore) => secondsToClock(state.timer.timer));
 
-const TimerDisplay: React.FC<Props> = ({ clock, currentTimerType }) => (
-  <>
-    <section id="timer-label">{currentTimerType}</section>
-    <section id="time-left">{clock}</section>
-  </>
-);
-
-const mapStateToProps = (state: AppStore): object => {
-  const { timer, currentTimerType } = state.timer;
-
-  return {
-    currentTimerType,
-    clock: secondsToClock(timer),
-  };
+  return (
+    <>
+      <section id="timer-label">{currentTimerType}</section>
+      <section id="time-left">{clock}</section>
+    </>
+  );
 };
 
-export default connect(mapStateToProps)(TimerDisplay);
+export default TimerDisplay;
