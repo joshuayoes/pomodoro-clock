@@ -1,24 +1,27 @@
 import React from 'react';
-import { connect } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { TimerAction } from '../redux/reducers/timerReducer';
 
 interface Props {
   name: string;
   id: string;
-  actionCreator: any;
-  dispatch: any;
+  actionCreator: TimerAction;
 }
 
 const Button: React.FC<Props> = ({
-  name, id, actionCreator, dispatch,
-}) => (
-  <button
-    type="button"
-    id={id}
-    onClick={(): TimerAction => dispatch(actionCreator)}
-  >
-    {name}
-  </button>
-);
+  name, id, actionCreator,
+}) => {
+  const dispatch = useDispatch();
 
-export default connect()(Button);
+  return (
+    <button
+      type="button"
+      id={id}
+      onClick={(): TimerAction => dispatch(actionCreator)}
+    >
+      {name}
+    </button>
+  );
+};
+
+export default Button;
