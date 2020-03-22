@@ -92,6 +92,26 @@ const timerReducer = (state: TimerState = intialState, action: TimerAction): Tim
         timer: (state.sessionLength - 1) * 60,
       };
     case TICK:
+      // Check if the current timer is finished
+      if (state.timer === 0) {
+        // If the current timer is a break, switch to session
+        if (state.currentTimerType === 'Break') {
+          return {
+            ...state,
+            timer: (state.sessionLength) * 60,
+            currentTimerType: 'Session',
+          };
+        }
+
+        // If the current timer is a session, switch to break
+        return {
+          ...state,
+          timer: (state.breakLength) * 60,
+          currentTimerType: 'Break',
+        };
+      }
+
+      // Most common case: decrement timer
       return {
         ...state,
         timer: state.timer - 1,
