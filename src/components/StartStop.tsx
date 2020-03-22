@@ -10,7 +10,6 @@ interface Props {
   id: string;
 }
 
-
 const StartStop: React.FC<Props> = ({
   name, id,
 }) => {
@@ -21,6 +20,7 @@ const StartStop: React.FC<Props> = ({
     <button
       type="button"
       id={id}
+      // eslint-disable-next-line @typescript-eslint/explicit-function-return-type
       onClick={() => (isPlaying ? dispatch(pauseCountdown()) : dispatch(beginCountdown()))}
     >
       {name}

@@ -1,7 +1,7 @@
 /* eslint-disable no-undef */
 import {
   // eslint-disable-next-line max-len
-  INCREASE_BREAK_LENGTH, DECREASE_BREAK_LENGTH, INCREASE_SESSION_LENGTH, DECREASE_SESSION_LENGTH, DECREMENT_TIMER,
+  INCREASE_BREAK_LENGTH, DECREASE_BREAK_LENGTH, INCREASE_SESSION_LENGTH, DECREASE_SESSION_LENGTH,
 } from '../../actions';
 import timerReducer, { intialState } from '../timerReducer';
 
@@ -52,17 +52,6 @@ describe('Timer Reducer', () => {
     expect(newState).toEqual({
       ...intialState,
       sessionLength: 24,
-    });
-  });
-
-  it('Dispatching DECREMENT_TIMER decrements default timer state from 1500 to 1499', () => {
-    const newState = timerReducer(undefined, {
-      type: DECREMENT_TIMER,
-    });
-
-    expect(newState).toEqual({
-      ...intialState,
-      timer: 1499,
     });
   });
 });
