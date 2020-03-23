@@ -8,9 +8,11 @@ const TimerDisplay: React.FC = () => {
   const currentTimerType = useSelector((state: AppStore) => state.timer.currentTimerType);
   const clock = useSelector((state: AppStore) => secondsToClock(state.timer.timer));
 
+  // Play sound when timer switches between session and break state
   useDidUpdateEffect((): void => {
     // eslint-disable-next-line no-undef
     const alarm = document.getElementById('beep') as HTMLAudioElement;
+    alarm.currentTime = 0;
     alarm.play();
   }, [currentTimerType]);
 

@@ -1,7 +1,7 @@
 import React from 'react';
 import './App.scss';
 import TimerControl from './components/TimerControl';
-import Button from './components/Button';
+import ResetButton from './components/ResetButton';
 import {
   increaseBreakLength,
   decreaseBreakLength,
@@ -21,7 +21,7 @@ const App: React.FC = () => (
     <TimerDisplay />
 
     <StartStop name="Start/Stop" id="start_stop" />
-    <Button name="Reset" id="reset" actionCreator={resetTimer()} />
+    <ResetButton name="Reset" id="reset" actionCreator={resetTimer()} />
   </div>
 );
 

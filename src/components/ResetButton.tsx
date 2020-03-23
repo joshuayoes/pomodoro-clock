@@ -17,7 +17,13 @@ const Button: React.FC<Props> = ({
     <button
       type="button"
       id={id}
-      onClick={(): TimerAction => dispatch(actionCreator)}
+      onClick={(): void => {
+        // eslint-disable-next-line no-undef
+        const alarm = document.getElementById('beep') as HTMLAudioElement;
+        alarm.pause();
+
+        dispatch(actionCreator);
+      }}
     >
       {name}
     </button>
