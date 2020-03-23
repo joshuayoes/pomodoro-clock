@@ -1,26 +1,18 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { useSelector } from 'react-redux';
 import secondsToClock from '../utilityFunctions';
 import { AppStore } from '../redux/store';
+import useDidUpdateEffect from '../useDidUpdateEffect';
 
 const TimerDisplay: React.FC = () => {
   const currentTimerType = useSelector((state: AppStore) => state.timer.currentTimerType);
   const clock = useSelector((state: AppStore) => secondsToClock(state.timer.timer));
 
-  // prevents sound from firing on intial mount
-  const [notFirstMount, setNotFirstMount] = useState(false);
-
-  useEffect(() => {
-    if (notFirstMount) {
-      // eslint-disable-next-line no-undef
-      const alarm = document.getElementById('beep') as HTMLAudioElement;
-      alarm.play();
-    }
-
-    // allows sound to play on future state changes
+  useDidUpdateEffect((): void => {
+    // eslint-disable-next-line no-undef
+    const alarm = document.getElementById('beep') as HTMLAudioElement;
+    alarm.play();
   }, [currentTimerType]);
-
-  useEffect(() => setNotFirstMount(true), []);
 
 
   return (
