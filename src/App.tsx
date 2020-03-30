@@ -30,6 +30,7 @@ const Background = styled.main<BackgroundProps>`
 const TimerContainer = styled.section`
   display: flex;
   flex-direction: column;
+  align-items: center;
 `;
 
 
@@ -44,8 +45,16 @@ const App: React.FC = () => {
     <Background id="app" backgroundColor={backgroundColor}>
       <TimerContainer>
         <TimerDisplay />
-        <TimerControl controlType="session" increase={increaseSessionLength()} decrease={decreaseSessionLength()} />
-        <TimerControl controlType="break" increase={increaseBreakLength()} decrease={decreaseBreakLength()} />
+        <TimerControl
+          controlType="break"
+          increase={increaseBreakLength()}
+          decrease={decreaseBreakLength()}
+        />
+        <TimerControl
+          controlType="session"
+          increase={increaseSessionLength()}
+          decrease={decreaseSessionLength()}
+        />
         <StartStop />
         <ResetButton />
       </TimerContainer>
