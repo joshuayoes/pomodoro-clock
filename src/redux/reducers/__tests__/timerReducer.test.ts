@@ -1,11 +1,13 @@
 /* eslint-disable no-undef */
-import mockStore from '../../__mocks__/mockStore';
 import {
-  // eslint-disable-next-line max-len
-  INCREASE_BREAK_LENGTH, DECREASE_BREAK_LENGTH, INCREASE_SESSION_LENGTH, DECREASE_SESSION_LENGTH,
+  INCREASE_BREAK_LENGTH,
+  DECREASE_BREAK_LENGTH,
+  INCREASE_SESSION_LENGTH,
+  DECREASE_SESSION_LENGTH,
+  BEGIN_COUNTDOWN,
 } from '../../actions';
 import {
-  beginCountdown, pauseCountdown, tick, resetTimer,
+  pauseCountdown, tick, resetTimer,
 } from '../../actionCreators';
 import timerReducer, { intialState } from '../timerReducer';
 
@@ -15,17 +17,13 @@ describe('Timer Reducer', () => {
     expect(newState).toEqual(intialState);
   });
 
-  // it('Dispatching BEGIN_COUNTDOWN dispatch to store', () => {
-  //   const store = mockStore({
-  //     timer: intialState,
-  //   });
-
-  //   store.dispatch(beginCountdown);
-
-  //   const actions = store.getActions();
-
-  //   expect(true).toBeTruthy();
-  // });
+  it('Dispatching BEGIN_COUNTDOWN should change isPlaying to true', () => {
+    const newState = timerReducer(undefined, { type: BEGIN_COUNTDOWN });
+    expect(newState).toEqual({
+      ...intialState,
+      isPlaying: true,
+    });
+  });
 
   it('Dispatching PAUSE_COUNTDOWN should return isPlaying is false', () => {
     const newState = timerReducer(undefined, pauseCountdown());
