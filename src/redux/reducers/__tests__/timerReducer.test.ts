@@ -41,6 +41,7 @@ describe('Timer Reducer', () => {
     expect(newState).toEqual({
       ...intialState,
       sessionLength: 26,
+      timer: 1560,
     });
   });
 
@@ -52,6 +53,7 @@ describe('Timer Reducer', () => {
     expect(newState).toEqual({
       ...intialState,
       sessionLength: 24,
+      timer: 1440,
     });
   });
 });
