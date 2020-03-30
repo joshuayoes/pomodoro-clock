@@ -1,33 +1,25 @@
 import React from 'react';
 import { useDispatch } from 'react-redux';
-import { TimerAction } from '../redux/reducers/timerReducer';
+import { resetTimer } from '../redux/actionCreators';
 
-interface Props {
-  name: string;
-  id: string;
-  actionCreator: TimerAction;
-}
-
-const Button: React.FC<Props> = ({
-  name, id, actionCreator,
-}) => {
+const ResetButton: React.FC = () => {
   const dispatch = useDispatch();
 
   return (
     <button
       type="button"
-      id={id}
+      id="reset"
       onClick={(): void => {
         // eslint-disable-next-line no-undef
         const alarm = document.getElementById('beep') as HTMLAudioElement;
         alarm.pause();
 
-        dispatch(actionCreator);
+        dispatch(resetTimer());
       }}
     >
-      {name}
+      Reset
     </button>
   );
 };
 
-export default Button;
+export default ResetButton;

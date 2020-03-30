@@ -7,7 +7,6 @@ import {
   decreaseBreakLength,
   increaseSessionLength,
   decreaseSessionLength,
-  resetTimer,
 } from './redux/actionCreators';
 import TimerDisplay from './components/TimerDisplay';
 import StartStop from './components/StartStop';
@@ -20,8 +19,8 @@ const App: React.FC = () => (
 
     <TimerDisplay />
 
-    <StartStop name="Start/Stop" id="start_stop" />
-    <ResetButton name="Reset" id="reset" actionCreator={resetTimer()} />
+    <StartStop />
+    <ResetButton />
   </div>
 );
 

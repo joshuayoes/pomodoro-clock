@@ -1,22 +1,37 @@
 /* eslint-disable no-undef */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import React from 'react';
-import { shallow } from 'enzyme';
+import { mount } from 'enzyme';
+import { Provider } from 'react-redux';
+import configureMockStore from 'redux-mock-store';
+import thunk from 'redux-thunk';
 import TimerControl from '../TimerControl';
 import findById from '../../../testUtility';
 import {
   increaseBreakLength, decreaseBreakLength, increaseSessionLength, decreaseSessionLength,
 } from '../../redux/actionCreators';
+import { intialState } from '../../redux/reducers/timerReducer';
+
+const mockStore = configureMockStore([thunk]);
 
 
-describe('Break Timer Control', () => {
-  const props = {
-    controlType: 'break',
-    length: 5,
-  };
-  const { controlType } = props;
+describe('Break <TimerControl />', () => {
+  const store = mockStore({
+    timer: intialState,
+  });
 
-  const wrapper = shallow(<TimerControl controlType={controlType} increase={increaseBreakLength()} decrease={decreaseBreakLength()} />);
+  // eslint-disable-next-line @typescript-eslint/explicit-function-return-type
+  const getWrapper = () => mount(
+    <Provider store={store}>
+      <TimerControl
+        controlType="break"
+        increase={increaseBreakLength()}
+        decrease={decreaseBreakLength()}
+      />
+    </Provider>,
+  );
+
+  const wrapper = getWrapper();
 
   it('An element with id="break-label" exists', () => {
     const component = findById(wrapper, '#break-label');
@@ -39,13 +54,23 @@ describe('Break Timer Control', () => {
   });
 });
 
-describe('Session Timer Control', () => {
-  const props = {
-    controlType: 'session',
-  };
-  const { controlType } = props;
+describe('Session <TimerControl />', () => {
+  const store = mockStore({
+    timer: intialState,
+  });
 
-  const wrapper = shallow(<TimerControl controlType={controlType} increase={increaseSessionLength()} decrease={decreaseSessionLength()} />);
+  // eslint-disable-next-line @typescript-eslint/explicit-function-return-type
+  const getWrapper = () => mount(
+    <Provider store={store}>
+      <TimerControl
+        controlType="session"
+        increase={increaseSessionLength()}
+        decrease={decreaseSessionLength()}
+      />
+    </Provider>,
+  );
+
+  const wrapper = getWrapper();
 
   it('An element with the id="session-label"', () => {
     const component = findById(wrapper, '#session-label');
