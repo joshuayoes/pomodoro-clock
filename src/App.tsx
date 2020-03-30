@@ -16,9 +16,7 @@ const App: React.FC = () => (
   <div id="app">
     <TimerControl controlType="session" increase={increaseSessionLength()} decrease={decreaseSessionLength()} />
     <TimerControl controlType="break" increase={increaseBreakLength()} decrease={decreaseBreakLength()} />
-
     <TimerDisplay />
-
     <StartStop />
     <ResetButton />
   </div>

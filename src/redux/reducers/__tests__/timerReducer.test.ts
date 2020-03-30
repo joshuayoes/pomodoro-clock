@@ -1,14 +1,39 @@
 /* eslint-disable no-undef */
+import mockStore from '../../__mocks__/mockStore';
 import {
   // eslint-disable-next-line max-len
   INCREASE_BREAK_LENGTH, DECREASE_BREAK_LENGTH, INCREASE_SESSION_LENGTH, DECREASE_SESSION_LENGTH,
 } from '../../actions';
+import {
+  beginCountdown, pauseCountdown, tick, resetTimer,
+} from '../../actionCreators';
 import timerReducer, { intialState } from '../timerReducer';
 
 describe('Timer Reducer', () => {
   it('Undefined types should return default state', () => {
     const newState = timerReducer(undefined, { type: 'SOMETHING_RANDOM' });
     expect(newState).toEqual(intialState);
+  });
+
+  // it('Dispatching BEGIN_COUNTDOWN dispatch to store', () => {
+  //   const store = mockStore({
+  //     timer: intialState,
+  //   });
+
+  //   store.dispatch(beginCountdown);
+
+  //   const actions = store.getActions();
+
+  //   expect(true).toBeTruthy();
+  // });
+
+  it('Dispatching PAUSE_COUNTDOWN should return isPlaying is false', () => {
+    const newState = timerReducer(undefined, pauseCountdown());
+
+    expect(newState).toEqual({
+      ...intialState,
+      isPlaying: false,
+    });
   });
 
   it('Dispatching INCREASE_BREAK_LENGTH increments default breakLength state from 5 to 6', () => {
@@ -55,5 +80,59 @@ describe('Timer Reducer', () => {
       sessionLength: 24,
       timer: 1440,
     });
+  });
+
+  it('Dispatching TICK with default state should decrement timer by 1', () => {
+    const newState = timerReducer(undefined, tick());
+
+    expect(newState).toEqual({
+      ...intialState,
+      timer: intialState.timer - 1,
+    });
+  });
+
+  it('Dispatching TICK where timer = 0 and currentTimerType = "Break" should switch to new session timer', () => {
+    const testingState = {
+      ...intialState,
+      timer: 0,
+      currentTimerType: 'Break',
+    };
+
+    const newState = timerReducer(testingState, tick());
+
+    expect(newState).toEqual({
+      ...intialState,
+      timer: (intialState.sessionLength) * 60,
+      currentTimerType: 'Session',
+    });
+  });
+
+  it('Dispatching TICK where timer = 0 and currentTimerType = "Session" should switch to new break timer', () => {
+    const testingState = {
+      ...intialState,
+      timer: 0,
+      currentTimerType: 'Session',
+    };
+
+    const newState = timerReducer(testingState, tick());
+
+    expect(newState).toEqual({
+      ...intialState,
+      timer: (intialState.breakLength) * 60,
+      currentTimerType: 'Break',
+    });
+  });
+
+  it('Dispatching RESET_TIMER should reset to intial state', () => {
+    const testingState = {
+      ...intialState,
+      breakLength: 2,
+      timer: 531,
+      isPlaying: false,
+    };
+
+    const newState = timerReducer(testingState, resetTimer());
+
+    expect(newState).toEqual(intialState);
   });
 });
