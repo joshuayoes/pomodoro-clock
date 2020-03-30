@@ -16,7 +16,7 @@ const StartStop: React.FC = () => {
       // eslint-disable-next-line @typescript-eslint/explicit-function-return-type
       onClick={() => (isPlaying ? dispatch(pauseCountdown()) : dispatch(beginCountdown()))}
     >
-      Start/Stop
+      {isPlaying ? 'Stop' : 'Start'}
     </button>
   );
 };

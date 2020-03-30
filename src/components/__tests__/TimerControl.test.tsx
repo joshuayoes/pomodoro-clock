@@ -14,7 +14,6 @@ import { intialState } from '../../redux/reducers/timerReducer';
 
 const mockStore = configureMockStore([thunk]);
 
-
 describe('Break <TimerControl />', () => {
   const store = mockStore({
     timer: intialState,
