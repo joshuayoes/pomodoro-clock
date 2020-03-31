@@ -31,6 +31,11 @@ const TimerContainer = styled.section`
   display: flex;
   flex-direction: column;
   align-items: center;
+  min-width: 350px;
+`;
+
+const ButtonContainer = styled.section`
+  display: flex;
 `;
 
 
@@ -55,8 +60,10 @@ const App: React.FC = () => {
           increase={increaseSessionLength()}
           decrease={decreaseSessionLength()}
         />
-        <StartStop />
-        <ResetButton />
+        <ButtonContainer>
+          <StartStop />
+          <ResetButton />
+        </ButtonContainer>
       </TimerContainer>
     </Background>
   );
