@@ -69,5 +69,11 @@
     "eslint-plugin-react-hooks": "^2.5.1",
     "prettier": "^1.19.1",
     "typescript-plugin-styled-components": "^1.4.4"
+  },
+  "resolutions": {
+    "kind-of": "^6.0.3",
+    "acorn": "^7.1.1",
+    "minimist": "^1.2.2",
+    "serialize-javascript": "^2.1.1"
   }
 }
